@@ -6,7 +6,7 @@ engine = db.create_engine('postgresql://postgres:Bekamsol54_Ayanat@db.dkbrcjbbae
 
 def add_data(table_name, arr):
 	with engine.connect().execution_options(autocommit=True) as con:
-		con.execute("insert into {table_name} values {arr}".format(table_name=table_name, arr='(\'' + "\' ,\'".join(arr) + '\')'))
+		con.execute("insert into {table_name} values {arr}".format(table_name=table_name, arr='(\'' + '\' ,\''.join(arr) + '\')'))
 
 def read_data(table_name):
 	with engine.connect().execution_options(autocommit=True) as con:
@@ -21,7 +21,7 @@ def update_data(table_name, row, data):
 		query = 'update '+ table_name + ' set ' 
 		for i in range(1, len(data.columns)):
 			query += str(data.columns[i]) + ' =\'' + str(data.iloc[row, i]) + '\','
-		query = query[:-1] + ' where ' + str(id_name) + ' = ' + str(data.iloc[row,0])
+		query = query[:-1] + ' where ' + str(id_name) + ' = ' + '\''+str(data.iloc[row,0]+'\'')
 		con.execute(query)
 
 def delete_data(table_name, row, data):
