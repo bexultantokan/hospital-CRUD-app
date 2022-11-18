@@ -137,9 +137,6 @@ def main():
             st.warning("Please input a valid row number")
         else:
             row = int(row)
-            # st.write('Unchangeable key ' + data.columns[0] + ': ', data.iloc[row,0])
-            # for i in range(1, len(data.columns)):
-            #     data.iloc[row,i] = st.text_input(data.columns[i],data.iloc[row,i])
             if st.button("Delete"):
                 delete_data(table_name, row, data)
                 st.success("Deleted Row {}".format(row))    

@@ -27,5 +27,5 @@ def update_data(table_name, row, data):
 def delete_data(table_name, row, data):
 	with engine.connect().execution_options(autocommit=True) as con:
 		id_name = data.columns[0]
-		query = 'delete from ' + table_name + ' where ' + str(id_name) + ' = ' + str(data.iloc[row,0])
+		query = 'delete from ' + table_name + ' where ' + str(id_name) + ' = \'' + str(data.iloc[row,0]+'\'')
 		con.execute(query)
