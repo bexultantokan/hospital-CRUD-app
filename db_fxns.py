@@ -6,7 +6,7 @@ engine = db.create_engine('postgresql://postgres:Bekamsol54_Ayanat@db.dkbrcjbbae
 
 def add_data(table_name, arr):
 	with engine.connect().execution_options(autocommit=True) as con:
-		con.execute("insert into {table_name} values {arr}".format(table_name=table_name, arr='(\'' + "\' ,\' ".join(arr) + '\')'))
+		con.execute("insert into {table_name} values {arr}".format(table_name=table_name, arr='(\'' + "\' ,\'".join(arr) + '\')'))
 
 def read_data(table_name):
 	with engine.connect().execution_options(autocommit=True) as con:
