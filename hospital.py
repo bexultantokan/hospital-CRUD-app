@@ -5,6 +5,7 @@ import streamlit.components.v1 as stc
 import datetime 
 
 def main():
+    st.title("Hospital Database made by Bexultan Tokan for CSCI-341")
     menu = ["Create","Read","Update","Delete"]
     choice = st.sidebar.selectbox("Menu",menu)
     if choice == "Create":
@@ -19,7 +20,7 @@ def main():
                     st.warning("Please input all fields")
                 elif id.isdigit() == False:
                     st.warning("ID must be a number")   
-                elif id in read_data(table_name)['id'].values:
+                elif str(id) in str(read_data(table_name)['id'].values):
                     st.warning("ID already exists")
                 else:
                     add_data(table_name,[id, description])
@@ -32,7 +33,7 @@ def main():
                     st.warning("Please input all fields")
                 elif population.isdigit() == False:
                     st.warning("Population must be a number")
-                elif name in read_data(table_name)['name'].values:
+                elif name in read_data(table_name)['cname'].values:
                     st.warning("Country already exists")
                 else:
                     add_data(table_name,[name, population])
@@ -56,7 +57,7 @@ def main():
             date = st.date_input("Date", min_value=pd.to_datetime('1688-01-01'), max_value=pd.to_datetime(datetime.date.today()))
             if st.button("Add Discover"):
                 if disease_code in read_data(table_name)['disease_code'].values:
-                    st.warning("Disease Code already was discovered")
+                    st.warning("Disease already was discovered")
                 else:
                     add_data(table_name,[country_name, disease_code, str(date)])
                     st.success("Added ::{} ::To Discover".format(country_name))
@@ -102,8 +103,8 @@ def main():
                     add_data(table_name,[email, degree])
                     st.success("Added ::{} ::To Doctor".format(email))
         elif table_name == 'Specialize':
-            email = st.selectbox("Email", read_data('Doctor')['email'].values)
-            id = st.selectbox("ID", read_data('DiseaseType')['id'].values)
+            email = str(st.selectbox("Email", read_data('Doctor')['email'].values))
+            id = str(st.selectbox("ID", read_data('DiseaseType'ç)['id'].values))
             if st.button("Add Specialize"):
                 add_data(table_name,[id, email])
                 st.success("Added :: {} ::To Specialize".format(email))
