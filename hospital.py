@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd 
 from db_fxns import * 
 import streamlit.components.v1 as stc
-import datetime 
 
 def main():
     st.title("Hospital Database made by Bexultan Tokan for CSCI-341")
@@ -104,7 +103,7 @@ def main():
                     st.success("Added ::{} ::To Doctor".format(email))
         elif table_name == 'Specialize':
             email = str(st.selectbox("Email", read_data('Doctor')['email'].values))
-            id = str(st.selectbox("ID", read_data('DiseaseType'ç)['id'].values))
+            id = str(st.selectbox("ID", read_data('DiseaseType')['id'].values))
             if st.button("Add Specialize"):
                 add_data(table_name,[id, email])
                 st.success("Added :: {} ::To Specialize".format(email))
