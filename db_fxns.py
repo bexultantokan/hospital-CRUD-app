@@ -1,7 +1,8 @@
 import sqlalchemy as db
 import pandas as pd
 
-engine = db.create_engine('postgresql://postgres:Bekamsol54_Ayanat@db.dkbrcjbbaermhhltcubj.supabase.co:6543/postgres')
+# engine = db.create_engine('mysql+pymysql://root:bekamsol54@localhost:3306/hospital') # for local
+engine = db.create_engine('postgresql://postgres:Bekamsol54_Ayanat@db.befqayiukinhwzqhxzqu.supabase.co:5432/postgres')
 
 
 def add_data(table_name, arr):
@@ -27,5 +28,5 @@ def update_data(table_name, row, data):
 def delete_data(table_name, row, data):
 	with engine.connect().execution_options(autocommit=True) as con:
 		id_name = data.columns[0]
-		query = 'delete from ' + table_name + ' where ' + str(id_name) + ' = \'' + str(data.iloc[row,0]+'\'')
+		query = 'delete from ' + table_name + ' where ' + str(id_name) + ' = \'' + str(data.iloc[row,0])+'\''
 		con.execute(query)
