@@ -13,7 +13,8 @@ def read_data(table_name):
 	with engine.connect().execution_options(autocommit=True) as con:
 		query = con.execute("select * from {}".format(table_name))
 		df = pd.DataFrame(query.fetchall())
-		df.columns = query.keys()
+		if len(df.columns) > 0:
+			df.columns = query.keys()
 		return df
 
 def update_data(table_name, row, data):
