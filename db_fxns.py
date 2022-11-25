@@ -58,8 +58,8 @@ def query2():
 							where users.email not in
 								(select email from diseasetype inner join specialize
 									on diseasetype.description='infectious diseases'
-									and diseasetype.id=specialize.id)) as u
-						on users.email=u.email) as t
+									and diseasetype.id=specialize.id)) u
+						on users.email=u.email) t
 			on doctor.email=t.email
 		'''
 		ans = con.execute(query)
@@ -79,8 +79,8 @@ def query2():
 							where users.email not in
 								(select email from diseasetype inner join specialize
 									on diseasetype.description='infectious diseases'
-									and diseasetype.id=specialize.id)) as u
-						on users.email=u.email) as t
+									and diseasetype.id=specialize.id)) u
+						on users.email=u.email) t
 			on doctor.email=t.email
 		'''
 		ans = con.execute(query)
@@ -96,10 +96,10 @@ def query3():
 			doctor inner join
 				(select users.email, users.name, users.surname from
 				users inner join
-					(select specialize.email, count(*) as cnt 
+					(select specialize.email, count(*) cnt 
 					from specialize
-					group by specialize.email having cnt > 2) as s
-				on users.email=s.email) as t
+					group by specialize.email having cnt > 2) s
+				on users.email=s.email) t
 			on doctor.email=t.email
 		'''
 		ans = con.execute(query)
