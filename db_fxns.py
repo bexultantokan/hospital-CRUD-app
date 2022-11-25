@@ -125,7 +125,7 @@ def query6():
 	with engine.connect().execution_options(autocommit=True) as con:
 		query = '''
 			update users 
-			set users.salary = users.salary * 2
+			set salary = salary * 2
 			where users.email in 
 					(select email from record inner join
 						(select disease.disease_code from disease where disease.description ='covid-19') as t
@@ -157,11 +157,16 @@ def query7():
 def query8():
 	with engine.connect().execution_options(autocommit=True) as con:
 		query = '''
-			CREATE INDEX pathogen_idx ON disease (pathogen);
+		ALTER TABLE disease OWNER TO current_user;
+		CREATE INDEX pathogen_idx ON disease (pathogen);
+		select *
+		from pg_indexes
+		where tablename = 'disease';
 		'''
-		con.execute(query)
-		check = 'show index from disease'
-		ans = con.execute(check)
+		
+		ans = con.execute(query)
+		# check = 'show index from disease'
+		# ans = con.execute(check)
 		df = pd.DataFrame(ans.fetchall())
 		if len(df.columns) > 0:
 			df.columns = ans.keys()
