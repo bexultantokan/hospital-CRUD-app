@@ -58,30 +58,9 @@ def query2():
 							where users.email not in
 								(select email from diseasetype inner join specialize
 									on diseasetype.description='infectious diseases'
-									and diseasetype.id=specialize.id)) u
-						on users.email=u.email) t
-			on doctor.email=t.email
-		'''
-		ans = con.execute(query)
-		df = pd.DataFrame(ans.fetchall())
-		if len(df.columns) > 0:
-			df.columns = ans.keys()
-		return df
-
-def query2():
-	with engine.connect().execution_options(autocommit=True) as con:
-		query = '''
-		select distinct t.name, t.surname, doctor.degree from
-			doctor inner join
-				(select users.email, users.name, users.surname from
-					users inner join
-						(select users.email from users
-							where users.email not in
-								(select email from diseasetype inner join specialize
-									on diseasetype.description='infectious diseases'
-									and diseasetype.id=specialize.id)) u
-						on users.email=u.email) t
-			on doctor.email=t.email
+									and diseasetype.id=specialize.id)) as u
+						on users.email=u.email) as t
+			on doctor.email=t.email 
 		'''
 		ans = con.execute(query)
 		df = pd.DataFrame(ans.fetchall())
@@ -96,10 +75,10 @@ def query3():
 			doctor inner join
 				(select users.email, users.name, users.surname from
 				users inner join
-					(select specialize.email, count(*) cnt 
+					(select specialize.email 
 					from specialize
-					group by specialize.email having cnt > 2) s
-				on users.email=s.email) t
+					group by specialize.email having count(*) > 2) as s
+				on users.email=s.email) as t
 			on doctor.email=t.email
 		'''
 		ans = con.execute(query)
