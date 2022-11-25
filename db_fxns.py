@@ -38,7 +38,7 @@ def query1():
 			from disease 
 				inner join discover 
 					on disease.disease_code=discover.disease_code 
-					and disease.pathogen="bacteria" 
+					and disease.pathogen= 'bacteria'
 					and discover.first_enc_dat < "1900-01-01"
 		''' 
 		ans = con.execute(query)
