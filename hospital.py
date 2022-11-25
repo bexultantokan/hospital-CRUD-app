@@ -6,7 +6,7 @@ import streamlit.components.v1 as stc
 
 def main():
     st.title("Hospital Database made by Bexultan Tokan for CSCI-341")
-    menu = ["Create","Read","Update","Delete"]
+    menu = ["Create","Read","Update","Delete", "Queries"]
     choice = st.sidebar.selectbox("Menu",menu)
     if choice == "Create":
         table_name = "DiseaseType"
@@ -168,13 +168,12 @@ def main():
                 for i in range(1, len(data.columns)):
                     data.iloc[row,i] = st.text_input(data.columns[i],data.iloc[row,i])
                 if st.button("Update"):
-                    data = read_data(table_name)
                     if len(data) == 0:
                         st.warning("Table is empty")
                     else:
                         update_data(table_name, row, data)
                         st.success("Updated Row {}".format(row))   
-                        
+                        data = read_data(table_name)
                         st.header("Changed Table")
                         if len(data) == 0:
                             st.warning("Table is empty")
@@ -207,6 +206,98 @@ def main():
                         st.warning("Table is empty")
                     else:
                         st.write(data)
+    elif choice == "Queries":
+        st.subheader("Queries")
+        query = st.selectbox("Query", ["1","2","3","4","5","6","7","8","9","10","11"])
+        if query == "1":
+            st.write("List the disease code and the description of diseases that are caused by “bacteria” (pathogen) and were discovered before 1990.")
+            if st.button("Execute"):
+                result = query1()
+                if result.empty:
+                    st.warning("No data available")
+                else:
+                    st.write(result)
+        elif query == "2":
+            st.write("List the name, surname and degree of doctors who are not specialized in “infectious diseases”.")
+            if st.button("Execute"):
+                result = query2()
+                if result.empty:
+                    st.warning("No data available")
+                else:
+                    st.write(result)
+        elif query == "3":
+            st.write("List the name, surname and degree of doctors who are specialized in more than 2 disease types.")
+            if st.button("Execute"):
+                result = query3()
+                if result.empty:
+                    st.warning("No data available")
+                else:
+                    st.write(result)
+        elif query == "4":
+            st.write("For each country list the cname and average salary of doctors who are specialized in “virology”.")
+            if st.button("Execute"):
+                result = query4()
+                if result.empty:
+                    st.warning("No data available")
+                else:
+                    st.write(result)
+        elif query == "5":
+            st.write("List the departments of public servants who report “covid-19” cases in more than one country and the number of such public servants who work in these departments. (i.e “Dept1 3” means that in the “Dept1” department there are 3 such employees.)")
+            if st.button("Execute"):
+                result = query5()
+                if result.empty:
+                    st.warning("No data available")
+                else:
+                    st.write(result)
+        elif query == "6":
+            st.write("Double the salary of public servants who have recorded covid-19 patients more than 3 times.")
+            if st.button("Execute"):
+                result = query6()
+                if result.empty:
+                    st.warning("No data available")
+                else:
+                    st.write(result)
+        elif query == "7":
+            st.write("Delete the users whose name contain the substring “bek” or “gul” (e.g. Alibek, Gulsim)")
+            if st.button("Execute"):
+                result = query7()
+                if result.empty:
+                    st.warning("No data available")
+                else:
+                    st.write(result)
+        elif query == "8":
+            st.write("Create an index namely “idx pathogen” on the “pathogen” field.")
+            if st.button("Execute"):
+                result = query8()
+                if result.empty:
+                    st.warning("No data available")
+                else:
+                    st.write(result)
+        elif query == "9":
+            st.write("List the email, name, and department of public servants who have created records where the number of patients is between 100000 and 999999")
+            if st.button("Execute"):
+                result = query9()
+                if result.empty:
+                    st.warning("No data available")
+                else:
+                    st.write(result)
+        elif query == "10":
+            st.write("List the top 5 counties with the highest number of total patients recorded.")
+            if st.button("Execute"):
+                result = query10()
+                if result.empty:
+                    st.warning("No data available")
+                else:
+                    st.write(result)
+        elif query == "11":
+            st.write("Group the diseases by disease type and the total number of patients treated.")
+            if st.button("Execute"):
+                result = query11()
+                if result.empty:
+                    st.warning("No data available")
+                else:
+                    st.write(result)
+     
 
 if __name__ == '__main__':
 	main()
