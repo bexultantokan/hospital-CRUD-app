@@ -8,6 +8,9 @@ def main():
     st.title("Hospital Database made by Bexultan Tokan for CSCI-341")
     menu = ["Create","Read","Update","Delete", "Queries"]
     choice = st.sidebar.selectbox("Menu",menu)
+    refresh = st.sidebar.button("Refresh shema")
+    if refresh:
+        refreshing()
     if choice == "Create":
         table_name = "DiseaseType"
         st.subheader("Add Item")
